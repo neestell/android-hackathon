@@ -62,14 +62,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResult(final String result) {
                         if (result != null) {
-                            if (storage.prepareUserModel(result, false) != null)
-                            startActivity(new Intent(MainActivity.this, AuthorizationActivity.class) {
+                            final UserModel userModel = storage.prepareUserModel(result, false);
+                            if (userModel != null)
+                            startActivityForResult(new Intent(MainActivity.this, AuthorizationActivity.class) {
 
                                 {
-                                    putExtra(Constants.USER_NAME, result.trim());
+                                    putExtra(Constants.USER, userModel);
                                     setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 }
-                            });
+                            }, 100);
                             else {
                                 Toast.makeText(getApplicationContext(), "User does not exist", Toast.LENGTH_LONG).show();
                             }
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK && data != null) {
             imageView.setImageResource(R.mipmap.welcome);
             //// TODO: 09.12.2017 user here
-        } else if (resultCode == Activity.RESULT_CANCELED && data == null) {
+        } else if (resultCode == Activity.RESULT_CANCELED && data != null) {
             imageView.setImageResource(R.mipmap.spy);
         }
     }

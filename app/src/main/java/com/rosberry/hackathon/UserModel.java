@@ -1,12 +1,13 @@
 package com.rosberry.hackathon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by dmitry on 09.12.2017.
  */
 
-public class UserModel {
+public class UserModel implements Serializable {
 
     private final String name;
 

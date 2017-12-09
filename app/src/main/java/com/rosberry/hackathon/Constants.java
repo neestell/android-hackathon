@@ -7,4 +7,5 @@ package com.rosberry.hackathon;
 public class Constants {
     public static final String USER_NAME = "user_name";
     public static final String USERS = "users";
+    public static final String USER = "user";
 }

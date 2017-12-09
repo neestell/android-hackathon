@@ -7,4 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.rosberry.hackathon.AuthorizationActivity">
 
+    <Button
+        android:id="@+id/button_authorize"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:text="Authorize"
+        android:textAppearance="?android:textAppearanceLarge"
+        />
 </RelativeLayout>
