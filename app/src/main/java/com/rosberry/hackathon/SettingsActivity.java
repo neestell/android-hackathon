@@ -20,15 +20,16 @@ import java.util.List;
 public class SettingsActivity extends AppCompatActivity {
     RecyclerView settingsRecycler;
     SettingsAdapter settingsAdapter;
+    Storage storage;
     UserModel userModel = null;
-    SharedPreferences preferences;
-    String username = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_settings);
-        prepareUserModel();
+        storage = new Storage(getApplicationContext());
+        userModel = storage.prepareUserModel(getIntent().getStringExtra(Constants.USER_NAME), true);
 
         settingsRecycler = findViewById(R.id.recycler_settings);
         settingsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -37,47 +38,5 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    private void prepareUserModel() {
-        username = getIntent().getStringExtra(Constants.USER_NAME);
 
-        preferences = getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-
-        String usersString = preferences.getString(Constants.USERS, null);
-        ArrayList<String> usersJson;
-        Gson gson = new Gson();
-
-        if (TextUtils.isEmpty(usersString)){
-
-            usersJson = new ArrayList<String>();
-            Log.d("qwqw", "no users found");
-
-        }else {
-
-            Type listType = new TypeToken<List<String>>() {}.getType();
-            usersJson = gson.fromJson(usersString, listType);
-            Log.d("qwqw", "users exists: " + usersJson.size());
-
-        }
-
-        for (String user: usersJson){
-            UserModel userModel = gson.fromJson(user, UserModel.class);
-            if (userModel.getName().equals(username)){
-                this.userModel = userModel;
-                Log.d("qwqw", "old user");
-
-                break;
-            }
-        }
-        if (userModel == null){
-
-            userModel = new UserModel(username);
-            usersJson.add(gson.toJson(userModel));
-            preferences.edit()
-                    .putString(Constants.USERS, gson.toJson(usersJson))
-                    .apply();
-            Log.d("qwqw", "new user, users updated");
-
-        }
-    }
 }

@@ -14,5 +14,13 @@
         android:background="@color/colorPrimary"
         />
 
+    <ImageView
+        android:id="@+id/image_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="10dp"
+        android:layout_centerInParent="true"
+        android:minHeight="10dp"
+        />
 
 </RelativeLayout>

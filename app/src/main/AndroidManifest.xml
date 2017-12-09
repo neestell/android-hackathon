@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".FingerprintSettingsActivity">
         </activity>
+        <activity android:name=".AuthorizationActivity">
+        </activity>
     </application>
 
 </manifest>
