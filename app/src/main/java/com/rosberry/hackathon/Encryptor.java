@@ -20,7 +20,7 @@ import javax.crypto.SecretKey;
 public class Encryptor {
 
     private static final String ANDROID_KEY_STORE = "AndroidKeyStore";
-
+    private static final String TRANSFORMATION = "AES/GCM/NoPadding";
     private byte[] initVector;
     private byte[] encryption;
     private Storage storage;
@@ -29,9 +29,9 @@ public class Encryptor {
         this.storage = storage;
     }
 
-    byte[] encryptTextWithAES(String alias, String textToEncrypt, String transformation, String algorithm) throws Exception {
-        Cipher cipher = Cipher.getInstance(transformation);
-        cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(alias, algorithm));
+    byte[] encryptTextWithAES(String alias, String textToEncrypt) throws Exception {
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(alias, KeyProperties.KEY_ALGORITHM_AES));
 
         initVector = cipher.getIV();
         encryption = cipher.doFinal(textToEncrypt.getBytes(StandardCharsets.UTF_8));
