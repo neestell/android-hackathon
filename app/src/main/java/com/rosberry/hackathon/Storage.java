@@ -19,15 +19,17 @@ import java.util.List;
 public class Storage {
 
     private final Context ctx;
+    private final SharedPreferences preferences;
 
     public Storage(Context applicationContext) {
         this.ctx = applicationContext;
+        this.preferences = ctx.getSharedPreferences(
+                ctx.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
     }
 
     public UserModel prepareUserModel(String username, boolean addUserIfneeded) {
         UserModel userModel = null;
-        SharedPreferences preferences = ctx.getSharedPreferences(
-                ctx.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
 
         String usersString = preferences.getString(Constants.USERS, null);
         ArrayList<String> usersJson;
@@ -50,7 +52,7 @@ public class Storage {
 
         for (String user : usersJson) {
             UserModel userModelCached = gson.fromJson(user, UserModel.class);
-            if ( userModelCached.getName().equals(username)) {
+            if (userModelCached.getName().equals(username)) {
                 userModel = userModelCached;
                 Log.d("qwqw", "old user");
 
@@ -69,5 +71,13 @@ public class Storage {
         }
 
         return userModel;
+    }
+
+    String getString(String key, String value) {
+        return preferences.getString(key, value);
+    }
+
+    void putString(String key, String value) {
+        preferences.edit().putString(key, value).apply();
     }
 }
