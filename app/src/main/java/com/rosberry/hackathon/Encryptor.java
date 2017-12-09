@@ -7,7 +7,6 @@ import android.util.Base64;
 
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
-import java.util.Date;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -50,7 +49,6 @@ public class Encryptor {
             keyGenerator = KeyGenerator.getInstance(algorithm, ANDROID_KEY_STORE);
             keyGenerator.init(new KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                     .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                    .setKeyValidityEnd(new Date(System.currentTimeMillis() + 10000))
                     .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
                     .build());
         } else {
