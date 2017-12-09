@@ -28,11 +28,20 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_settings);
+        prepareUserModel();
+
+        settingsRecycler = findViewById(R.id.recycler_settings);
+        settingsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        settingsRecycler.setHasFixedSize(true);
+        settingsRecycler.setAdapter(settingsAdapter = new SettingsAdapter());
+
+    }
+
+    private void prepareUserModel() {
         username = getIntent().getStringExtra(Constants.USER_NAME);
 
         preferences = getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-
 
         String usersString = preferences.getString(Constants.USERS, null);
         ArrayList<String> usersJson;
@@ -70,11 +79,5 @@ public class SettingsActivity extends AppCompatActivity {
             Log.d("qwqw", "new user, users updated");
 
         }
-
-        settingsRecycler = findViewById(R.id.recycler_settings);
-        settingsRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        settingsRecycler.setHasFixedSize(true);
-        settingsRecycler.setAdapter(settingsAdapter = new SettingsAdapter());
-
     }
 }
