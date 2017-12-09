@@ -7,5 +7,5 @@ package com.rosberry.hackathon;
 public interface IAuthorization {
 
     boolean check(String sequence);
-
+    boolean exists();
 }

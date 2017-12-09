@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Hackathon</string>
+    <string name="preference_file_key">private_prefs</string>
 </resources>

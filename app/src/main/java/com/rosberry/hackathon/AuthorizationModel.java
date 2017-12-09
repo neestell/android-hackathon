@@ -6,5 +6,5 @@ package com.rosberry.hackathon;
 
 public abstract class AuthorizationModel implements IAuthorization {
 
-
+    abstract AuthorizationType getType();
 }
